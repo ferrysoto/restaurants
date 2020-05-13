@@ -3,15 +3,16 @@ var bodyParser = require('body-parser');
 var app = express();
 const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://webmaster:qwe123QWE@cluster0-kgkuk.mongodb.net/test?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true });
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 client.connect(err => {
-  const collection = client.db("test").collection("devices");
+  const collection = client.db("restaurants").collection("devices");
   // Comprobar que la conexión es correcta
   if (err) {
     console.log(err);
   } else {
     console.log("Connected to DB");
   }
+
   client.close();
 });
 
