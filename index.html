@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Restaurants</title>
+  </head>
+
+  <header>
+      <h1>Restaurants disponibles</h1>
+  </header>
+
+  <body>
+    <form action="/restaurants" method="POST">
+      <label for="restaurant-name">Nom del restaurant:</label>
+      <input type="text" name="restaurant-name" maxlength="255" required>
+      <br>
+      <label for="restaurant-address">Adreça</label>
+      <input type="text" name="restaurant-address" maxlength="255" required>
+      <br>
+      <label for="city">Ciutat</label>
+      <input type="text" name="city" maxlength="255" required>
+      <br>
+      <label for="state">Provincia</label>
+      <input type="text" name="state" maxlength="255" required>
+      <br>
+      <label for="zipcode">Codi postal:</label>
+      <input type="number" name="zipcode" min="1" max="99999" required>
+      <br>
+      <label for="phone">Telèfon:</label>
+      <input type="number" name="phone" min="599999999" max="999999999" required>
+      <br>
+      <label for="type">Tipus de restaurant</label>
+      <select name="type">
+        <option value="No type selected" selected disabled>Escull un tipus:</option>
+        <option value="China">China</option>
+        <option value="Japones">Japonesa</option>
+        <option value="Kebab">Kebab</option>
+        <option value="Italià">Italià</option>
+        <option value="Mediterranea">Mediterranea</option>
+        <option value="Americana">Americana</option>
+      </select>
+      <button type="submit">Add new restaurant</button>
+    </form>
+  </body>
+</html>
