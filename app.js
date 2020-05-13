@@ -4,6 +4,7 @@ var app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
+app.set('view engine', 'ejs');
 
 const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://webmaster:qwe123QWE@cluster0-kgkuk.mongodb.net/test?retryWrites=true&w=majority";
@@ -21,6 +22,13 @@ client.connect(err => {
     console.log("Connected to DB");
   }
 
+  app.get('/', function (req, res) {
+    db.collection('restaurants').find().toArray()
+      .then(results => {
+        res.render('index.ejs', { restaurants: results })
+      })
+  });
+
   app.post('/restaurants', (req, res) => {
     restaurantsCollection.insertOne(req.body)
     .then(result => {
@@ -32,9 +40,6 @@ client.connect(err => {
 });
 
 
-app.get('/', function (req, res) {
-  res.sendFile(__dirname + '/index.html');
-});
 
 app.get('/new-restaurant', function (req, res) {
   res.sendFile(__dirname  + '/create-restaurant.html');
