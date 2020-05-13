@@ -2,7 +2,8 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
 
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static(__dirname + '/public'));
 
 const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://webmaster:qwe123QWE@cluster0-kgkuk.mongodb.net/test?retryWrites=true&w=majority";
@@ -30,8 +31,13 @@ client.connect(err => {
 
 });
 
-app.get('/', function (req, res){
-  res.sendFile(__dirname  + '/index.html');
+
+app.get('/', function (req, res) {
+  res.sendFile(__dirname + '/index.html');
+});
+
+app.get('/new-restaurant', function (req, res) {
+  res.sendFile(__dirname  + '/create-restaurant.html');
 });
 
 
