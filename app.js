@@ -7,7 +7,7 @@ app.use(express.static(__dirname + '/public'));
 app.set('view engine', 'ejs');
 
 const MongoClient = require('mongodb').MongoClient;
-const uri = "mongodb+srv://webmaster:qwe123QWE@cluster0-kgkuk.mongodb.net/test?retryWrites=true&w=majority";
+const uri = "mongodb+srv://webmaster:qwe123QWE@restaurants-app-txqq2.mongodb.net/test?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 client.connect(err => {
@@ -20,13 +20,17 @@ client.connect(err => {
     console.log("Connected to DB");
   }
 
-// Mostrar restaurantes
+  // Mostrar restaurantes
   app.get('/', function (req, res) {
     res.render('index.ejs')
   });
 
-//  Insertar restaurantes desde formulario
-  app.post('/new-restaurant', (req, res) => {
+  //  Insertar restaurantes desde formulario
+  app.get('/new-restaurant', function (req, res) {
+    res.render('new-restaurant.ejs')
+  });
+
+  app.post('/create-restaurant', (req, res) => {
     restaurantsCollection.insertOne(req.body)
     .then(result => {
       res.redirect('/')

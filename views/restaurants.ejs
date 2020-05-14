@@ -6,6 +6,8 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/navbar.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+    <script src="/main.js"></script>
   </head>
 
   <nav class="topnav">
@@ -22,29 +24,19 @@
         <% for (var i = 0; i < restaurants.length; i++) {%>
           <li class="restaurant">
             <span><%= restaurants[i].name %></span>
-          </li>
-          <li class="restaurant">
             <span><%= restaurants[i].address %></span>
-          </li>
-          <li class="restaurant">
             <span><%= restaurants[i].zipcode %></span>
-          </li>
-          <li class="restaurant">
             <span><%= restaurants[i].city %></span>
-          </li>
-          <li class="restaurant">
             <span><%= restaurants[i].state %></span>
-          </li>
-          <li class="restaurant">
             <span><%= restaurants[i].type %></span>
           </li>
           <% } %>
       </ul>
     </div>
     <div class="container">
-      <h1>Afegir un restaurant nou:</h1>
+      <h2>Afegir un restaurant nou:</h2>
       <br>
-      <form action="/restaurants" method="POST">
+      <form action="/create-restaurant" method="POST">
         <label for="name">Nom del restaurant:</label>
         <input type="text" name="name" maxlength="255" required>
         <br>
@@ -75,6 +67,13 @@
         </select>
         <button type="submit">Add new restaurant</button>
       </form>
+    </div>
+    <div class="container">
+      <h2>Update restaurant</h2>
+      <p>
+        test update Calle verdadera 456 09877 barcelona Mediterranea
+      </p>
+      <button id="update-button">Update restaurant</button>
     </div>
   </body>
 </html>
