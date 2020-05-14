@@ -10,8 +10,6 @@ const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://webmaster:qwe123QWE@cluster0-kgkuk.mongodb.net/test?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
-
-//  Insertar restaurantes
 client.connect(err => {
   const db = client.db("app");
   const restaurantsCollection = db.collection("restaurants");
@@ -22,14 +20,13 @@ client.connect(err => {
     console.log("Connected to DB");
   }
 
+// Mostrar restaurantes
   app.get('/', function (req, res) {
-    db.collection('restaurants').find().toArray()
-      .then(results => {
-        res.render('index.ejs', { restaurants: results })
-      })
+    res.render('index.ejs')
   });
 
-  app.post('/restaurants', (req, res) => {
+//  Insertar restaurantes desde formulario
+  app.post('/new-restaurant', (req, res) => {
     restaurantsCollection.insertOne(req.body)
     .then(result => {
       res.redirect('/')
@@ -37,15 +34,14 @@ client.connect(err => {
     .catch(error => console.error(error));
   });
 
+  app.get('/restaurants', function (req, res) {
+    db.collection('restaurants').find().toArray()
+      .then(results => {
+        res.render('restaurants.ejs', { restaurants: results })
+      })
+  });
+
 });
-
-
-
-app.get('/new-restaurant', function (req, res) {
-  res.sendFile(__dirname  + '/create-restaurant.html');
-});
-
-
 
 app.listen(3000, function() {
   console.log('La app funciona en el puerto 3000');

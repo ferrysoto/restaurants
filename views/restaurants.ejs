@@ -10,12 +10,37 @@
 
   <nav class="topnav">
     <a href="/">Home</a>
-    <a class="active" href="/new-restaurant">Restaurants</a>
+    <a class="active" href="/restaurants">Restaurants</a>
     <a href="#">Clients</a>
     <a href="#">La carta</a>
   </nav>
 
   <body>
+    <div class="container">
+      <h2>Restaurants:</h2>
+      <ul class="restaurants">
+        <% for (var i = 0; i < restaurants.length; i++) {%>
+          <li class="restaurant">
+            <span><%= restaurants[i].name %></span>
+          </li>
+          <li class="restaurant">
+            <span><%= restaurants[i].address %></span>
+          </li>
+          <li class="restaurant">
+            <span><%= restaurants[i].zipcode %></span>
+          </li>
+          <li class="restaurant">
+            <span><%= restaurants[i].city %></span>
+          </li>
+          <li class="restaurant">
+            <span><%= restaurants[i].state %></span>
+          </li>
+          <li class="restaurant">
+            <span><%= restaurants[i].type %></span>
+          </li>
+          <% } %>
+      </ul>
+    </div>
     <div class="container">
       <h1>Afegir un restaurant nou:</h1>
       <br>
