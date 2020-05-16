@@ -23,13 +23,15 @@
       <ul class="restaurants">
         <% for (var i = 0; i < restaurants.length; i++) {%>
           <li class="restaurant">
-            <span><%= restaurants[i].name %></span>
-            <span><%= restaurants[i].address %></span>
-            <span><%= restaurants[i].zipcode %></span>
-            <span><%= restaurants[i].city %></span>
-            <span><%= restaurants[i].state %></span>
-            <span><%= restaurants[i].type %></span>
+            <b>Nom:</b> <span><%= restaurants[i].name %></span><br>
+            <b>Adreça:</b> <span><%= restaurants[i].address %></span><br>
+            <b>Codi postal</b>: <span><%= restaurants[i].zipcode %></span><br>
+            <b>Població:</b> <span><%= restaurants[i].city %></span><br>
+            <b>Provincia:</b> <span><%= restaurants[i].state %></span><br>
+            <b>Telèfon:</b> <span><%= restaurants[i].phone %></span><br>
+            <b>Categoria:</b> <span><%= restaurants[i].type %></span>
           </li>
+          <br>
           <% } %>
       </ul>
     </div>
