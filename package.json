@@ -2,8 +2,9 @@
   "name": "restaurants",
   "version": "1.0.0",
   "description": "App NodeJS de restaurants",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
+    "start": "node app.js"
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -24,9 +25,5 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.3"
-  },
-  "scripts": {
-    "dev": "node app.js",
-    "start": "node app.js"
   }
 }
