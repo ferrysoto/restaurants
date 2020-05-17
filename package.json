@@ -26,6 +26,7 @@
     "nodemon": "^2.0.3"
   },
   "scripts": {
-    "dev": "node app.js"
+    "dev": "node app.js",
+    "start": "node app.js"
   }
 }
