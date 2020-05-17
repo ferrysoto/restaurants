@@ -64,6 +64,6 @@ client.connect(err => {
 
 });
 
-app.listen(8080, function() {
-  console.log('La app funciona en el puerto 8080');
+app.listen(80, function() {
+  console.log('La app funciona en el puerto 80');
 });
