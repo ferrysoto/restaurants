@@ -14,8 +14,6 @@
   <nav class="topnav">
     <a href="/">Home</a>
     <a class="active" href="/restaurants">Restaurants</a>
-    <a href="#">Clients</a>
-    <a href="#">La carta</a>
   </nav>
 
   <body>
@@ -52,18 +50,17 @@
             <option value="Mediterranea">Mediterranea</option>
             <option value="Americana">Americana</option>
           </select>
-          <button type="submit">Add new restaurant</button>
+          <button type="submit">Afegir restaurant</button>
         </form>
       </div>
-    </div>
-    <div class="container">
-      <h2>Restaurants:</h2>
-      <ul class="restaurants">
-        <% for (var i = 0; i < restaurants.length; i++) {%>
+      <div class="column">
+        <h2>Restaurants:</h2>
+        <ul class="restaurants">
+          <% for (var i = 0; i < restaurants.length; i++) {%>
           <li class="restaurant">
             <b>Nom:</b> <span><%= restaurants[i].name %></span><br>
             <b>Adreça:</b> <span><%= restaurants[i].address %></span><br>
-            <b>Codi postal</b>: <span><%= restaurants[i].zipcode %></span><br>
+            <b>Codi postal:</b> <span><%= restaurants[i].zipcode %></span><br>
             <b>Població:</b> <span><%= restaurants[i].city %></span><br>
             <b>Provincia:</b> <span><%= restaurants[i].state %></span><br>
             <b>Telèfon:</b> <span><%= restaurants[i].phone %></span><br>
@@ -72,6 +69,7 @@
           <br>
           <% } %>
         </ul>
+      </div>
     </div>
   </body>
 </html>

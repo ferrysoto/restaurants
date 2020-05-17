@@ -14,6 +14,8 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 client.connect(err => {
   const db = client.db("app");
   const restaurantsCollection = db.collection("restaurants");
+  const menuCollection = db.collection("menu");
+
   // Comprobar que la conexión es correcta
   if (err) {
     console.log(err);
@@ -22,23 +24,9 @@ client.connect(err => {
   }
 
   // Mostrar restaurantes
-  app.get('/', function (req, res) {
-    res.render('index.ejs')
-  });
-
-  //  Insertar restaurantes desde formulario
-  app.get('/new-restaurant', function (req, res) {
-    res.render('new-restaurant.ejs')
-  });
-
-  app.post('/create-restaurant', (req, res) => {
-    restaurantsCollection.insertOne(req.body)
-    .then(result => {
-      res.redirect('/')
-    })
-    .catch(error => console.error(error));
-  });
-
+  // app.get('/', function (req, res) {
+  //   res.render('index.ejs')
+  // });
 
   app.get('/restaurants', function (req, res) {
     db.collection('restaurants').find().toArray()
@@ -46,6 +34,33 @@ client.connect(err => {
         res.render('restaurants.ejs', { restaurants: results })
       })
   });
+
+  //  Insertar restaurantes desde formulario
+  app.post('/create-restaurant', (req, res) => {
+    restaurantsCollection.insertOne(req.body)
+    .then(result => {
+      res.redirect('/restaurants')
+    })
+    .catch(error => console.error(error));
+  });
+
+
+    // Mostrar menú
+    app.get('/', function (req, res) {
+      db.collection('menu').find().toArray()
+        .then(results => {
+          res.render('index.ejs', { menu: results })
+        })
+    });
+
+    //  Insertar menú desde formulario
+    app.post('/create-menu', (req, res) => {
+      menuCollection.insertOne(req.body)
+      .then(result => {
+        res.redirect('/')
+      })
+      .catch(error => console.error(error));
+    });
 
 });
 

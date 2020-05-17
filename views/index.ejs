@@ -17,46 +17,44 @@
 
   <body>
     <div class="container row">
-      <div class="container row">
-        <div class="column">
-          <h2>Afegir un plat nou:</h2>
+      <div class="column">
+        <h2>Afegir un plat nou:</h2>
+        <br>
+        <form action="/create-menu" method="POST">
+          <label for="name">Nom del plat:</label>
+          <input type="text" name="name" maxlength="255" required>
           <br>
-          <form action="/create-menu" method="POST">
-            <label for="name">Nom del plat:</label>
-            <input type="text" name="name" maxlength="255" required>
-            <br>
-            <label for="allergens">Alèrgens:</label>
-            <input type="text" name="address" maxlength="255" required>
-            <br>
-            <label for="preu">Preu:</label>
-            <input type="number" name="phone" min="0" max="999999999" required>
-            <br>
-            <label for="complements">Inclou:</label>
-            <select name="complements">
-              <option value="No selected selected" selected disabled>Escull guarnició:</option>
-              <option value="Patates">Patates</option>
-              <option value="Amanida">Amanida</option>
-              <option value="Patates y amanida">Patates y amanida</option>
-              <option value="Pebrots">Pebrots</option>
-              <option value="Sense guranició">Sense guranició</option>
-            </select>
-            <button type="submit">Afegir plat a la carta</button>
-          </form>
-        </div>
+          <label for="allergens">Alèrgens:</label>
+          <input type="text" name="allergens" maxlength="255">
+          <br>
+          <label for="preu">Preu:</label>
+          <input type="number" name="preu" step='0.01' value='0.00' min="0.00" placeholder='0.00' required>
+          <br>
+          <label for="complements">Inclou:</label>
+          <select name="complements">
+            <option value="No selected selected" selected disabled>Escull guarnició:</option>
+            <option value="Patates">Patates</option>
+            <option value="Amanida">Amanida</option>
+            <option value="Patates y amanida">Patates y amanida</option>
+            <option value="Pebrots">Pebrots</option>
+            <option value="Sense guranició">Sense guranició</option>
+          </select>
+          <button type="submit">Afegir plat a la carta</button>
+        </form>
       </div>
-      <div class="container">
+      <div class="column">
         <h2>Menú:</h2>
         <ul class="restaurants">
-          <% for (var i = 0; i < carta.length; i++) {%>
+          <% for (var i = 0; i < menu.length; i++) {%>
             <li class="restaurant">
-              <b>Nom:</b> <span><%= carta[i].name %></span><br>
-              <b>Alèrgens:</b> <span><%= carta[i].allergens %></span><br>
-              <b>Preu:</b> <span><%= carta[i].preu %></span><br>
-              <b>Guarnició:</b> <span><%= carta[i].complements %></span><br>
+              <b>Nom:</b> <span><%= menu[i].name %></span><br>
+              <b>Alèrgens:</b> <span><%= menu[i].allergens %></span><br>
+              <b>Preu:</b> <span><%= menu[i].preu %></span>€<br>
+              <b>Guarnició:</b> <span><%= menu[i].complements %></span><br>
             </li>
             <br>
-            <% } %>
-          </ul>
+          <% } %>
+        </ul>
       </div>
     </div>
   </body>
