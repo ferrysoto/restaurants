@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(express.static(__dirname + '/public'));
 app.set('view engine', 'ejs');
 
@@ -37,6 +38,7 @@ client.connect(err => {
     })
     .catch(error => console.error(error));
   });
+
 
   app.get('/restaurants', function (req, res) {
     db.collection('restaurants').find().toArray()

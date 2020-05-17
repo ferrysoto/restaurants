@@ -8,3 +8,19 @@ body {
 .container {
   padding: 12px;
 }
+
+.column {
+  float: left;
+  width: 50%;
+  flex: 50%;
+}
+
+.row {
+  display: flex;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
