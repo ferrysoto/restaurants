@@ -15,7 +15,7 @@ client.connect(err => {
   const db = client.db("app");
   const restaurantsCollection = db.collection("restaurants");
   const menuCollection = db.collection("menu");
-  const langCollection = db.collection("language");
+  const langCollection = db.collection("languages");
   const catCollection = db.collection("categories");
 
 
@@ -64,6 +64,18 @@ client.connect(err => {
         res.redirect('/')
       })
       .catch(error => console.error(error));
+    });
+
+    // Vista de categorias
+    app.get('/categories', function (req, res) {
+      db.collection('categories').find().toArray()
+        .then(results => {
+          res.render('categories.ejs', { categories: results })
+        })
+      db.collection('languages').find().toArray()
+        .then(results => {
+          res.render('categories.ejs', { languages: results })
+        })
     });
 
 });

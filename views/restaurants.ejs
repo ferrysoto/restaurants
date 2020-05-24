@@ -6,9 +6,13 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/navbar.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
     <script src="/main.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
   </head>
 
   <nav class="topnav">
@@ -19,58 +23,119 @@
   </nav>
 
   <body>
-    <div class="container row">
-      <div class="column">
-        <h2>Afegir un restaurant nou:</h2>
-        <br>
-        <form action="/create-restaurant" method="POST">
-          <label for="name">Nom del restaurant:</label>
-          <input type="text" name="name" maxlength="255" required>
-          <br>
-          <label for="address">Adreça</label>
-          <input type="text" name="address" maxlength="255" required>
-          <br>
-          <label for="city">Ciutat</label>
-          <input type="text" name="city" maxlength="255" required>
-          <br>
-          <label for="state">Provincia</label>
-          <input type="text" name="state" maxlength="255" required>
-          <br>
-          <label for="zipcode">Codi postal:</label>
-          <input type="number" name="zipcode" min="1" max="99999" required>
-          <br>
-          <label for="phone">Telèfon:</label>
-          <input type="number" name="phone" min="599999999" max="999999999" required>
-          <br>
-          <label for="type">Tipus de restaurant</label>
-          <select name="type">
-            <option value="No type selected" selected disabled>Escull un tipus:</option>
-            <option value="China">China</option>
-            <option value="Japones">Japonesa</option>
-            <option value="Kebab">Kebab</option>
-            <option value="Italià">Italià</option>
-            <option value="Mediterranea">Mediterranea</option>
-            <option value="Americana">Americana</option>
-          </select>
-          <button type="submit">Afegir restaurant</button>
-        </form>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <button type="button" name="button" class="btn btn-outline-primary float-right" data-toggle="modal" data-target="#addRestaurant">Afegir un nou restaurant</button>
+            </div>
+            <div class="card-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Adreça</th>
+                    <th scope="col">Ciutat</th>
+                    <th scope="col">Informació</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% for (var i = 0; i < restaurants.length; i++) {%>
+                    <tr>
+                      <td><%= restaurants[i].name %></td>
+                      <td><%= restaurants[i].address %></td>
+                      <td><%= restaurants[i].city %></td>
+                      <td><a class="btn btn-outline-info" data-toggle="modal" data-target="#<%= restaurants[i].name %>">Veure</a></td>
+                      <!-- Modal for view restaurants info -->
+                      <div class="modal fade" id="<%= restaurants[i].name %>" tabindex="-1" role="dialog" aria-labelledby="retaurantInfo" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="retaurantInfo">Informació del restaurant</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <ul class="list-group">
+                                <li class="list-group-item"><b>Nom:</b> <span class="float-right"><%= restaurants[i].name %></span></li>
+                                <li class="list-group-item"><b>Adreça:</b> <span class="float-right"><%= restaurants[i].address %></span></li>
+                                <li class="list-group-item"><b>Codi postal:</b> <span class="float-right"><%= restaurants[i].zipcode %></span></li>
+                                <li class="list-group-item"><b>Població:</b> <span class="float-right"><%= restaurants[i].city %></span></li>
+                                <li class="list-group-item"><b>Provincia:</b> <span class="float-right"><%= restaurants[i].state %></span></li>
+                                <li class="list-group-item"><b>Telèfon:</b> <span class="float-right"><%= restaurants[i].phone %></span></li>
+                                <li class="list-group-item"><b>Categoria:</b> <span class="float-right"><%= restaurants[i].type %></span></li>
+                              </ul>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Tanca</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </tr>
+                  <% } %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="column">
-        <h2>Restaurants:</h2>
-        <ul class="restaurants">
-          <% for (var i = 0; i < restaurants.length; i++) {%>
-          <li class="restaurant">
-            <b>Nom:</b> <span><%= restaurants[i].name %></span><br>
-            <b>Adreça:</b> <span><%= restaurants[i].address %></span><br>
-            <b>Codi postal:</b> <span><%= restaurants[i].zipcode %></span><br>
-            <b>Població:</b> <span><%= restaurants[i].city %></span><br>
-            <b>Provincia:</b> <span><%= restaurants[i].state %></span><br>
-            <b>Telèfon:</b> <span><%= restaurants[i].phone %></span><br>
-            <b>Categoria:</b> <span><%= restaurants[i].type %></span>
-          </li>
-          <br>
-          <% } %>
-        </ul>
+    </div>
+
+    <!-- Modal add restaurant -->
+    <div class="modal fade" id="addRestaurant" tabindex="-1" role="dialog" aria-labelledby="addRestLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addRestLabel">Afegir restaurant</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="/create-restaurant" method="POST">
+              <div class="form-group">
+                <label for="name">Nom del restaurant:</label>
+                <input type="text" class="form-control" name="name" maxlength="255" required>
+              </div>
+              <div class="form-group">
+                <label for="address">Adreça</label>
+                <input type="text" class="form-control" name="address" maxlength="255" required>
+              </div>
+              <div class="form-group">
+                <label for="city">Ciutat</label>
+                <input type="text" class="form-control" name="city" maxlength="255" required>
+              </div>
+              <div class="form-group">
+                <label for="state">Provincia</label>
+                <input type="text" class="form-control" name="state" maxlength="255" required>
+              </div>
+              <div class="form-group">
+                <label for="zipcode">Codi postal:</label>
+                <input type="number" class="form-control" name="zipcode" min="1" max="99999" required>
+              </div>
+              <div class="form-group">
+                <label for="phone">Telèfon:</label>
+                <input type="number" class="form-control" name="phone" min="599999999" max="999999999" required>
+              </div>
+              <div class="form-group">
+                <label for="type">Tipus de restaurant</label>
+                <select name="type" class="form-control">
+                  <option value="No type selected" selected disabled>Escull un tipus:</option>
+                  <option value="China">China</option>
+                  <option value="Japones">Japonesa</option>
+                  <option value="Kebab">Kebab</option>
+                  <option value="Italià">Italià</option>
+                  <option value="Mediterranea">Mediterranea</option>
+                  <option value="Americana">Americana</option>
+                </select>
+              </div>
+              <button class="btn btn-outline-success float-right" type="submit">Afegir restaurant</button>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
   </body>
