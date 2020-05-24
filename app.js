@@ -29,7 +29,7 @@ client.connect(err => {
   // ----------------- RESTAURANTES ---------------------
 
   // Vista de restaurantes
-  app.get('/restaurants', function (req, res) {
+  app.get('restaurants', function (req, res) {
     db.collection('restaurants').find().toArray()
       .then(results => {
         res.render('restaurants.ejs', { restaurants: results })
@@ -37,7 +37,7 @@ client.connect(err => {
   });
 
   //  Insertar restaurantes desde formulario
-  app.post('/create-restaurant', (req, res) => {
+  app.post('create-restaurant', (req, res) => {
     restaurantsCollection.insertOne(req.body)
     .then(result => {
       res.redirect('/restaurants')
@@ -46,7 +46,7 @@ client.connect(err => {
   });
 
   //  Esborrar restaurant
-  app.post('/remove-restaurant', (req, res) => {
+  app.post('remove-restaurant', (req, res) => {
     restaurantsCollection.deleteOne(req.body)
     .then(result => {
       res.redirect('/restaurants')
@@ -57,7 +57,7 @@ client.connect(err => {
     // ----------------- CARTA ---------------------
 
     // Mostrar menú
-    app.get('/', function (req, res) {
+    app.get('', function (req, res) {
       db.collection('menu').find().toArray()
         .then(results => {
           res.render('index.ejs', { menu: results })
@@ -65,7 +65,7 @@ client.connect(err => {
     });
 
     //  Insertar menú desde formulario
-    app.post('/create-menu', (req, res) => {
+    app.post('create-menu', (req, res) => {
       menuCollection.insertOne(req.body)
       .then(result => {
         res.redirect('/')
@@ -75,7 +75,7 @@ client.connect(err => {
 
 
     //  Esborrar menú
-    app.post('/remove-menu', (req, res) => {
+    app.post('remove-menu', (req, res) => {
       menuCollection.deleteOne(req.body)
       .then(result => {
         res.redirect('/')
@@ -86,14 +86,14 @@ client.connect(err => {
     // ----------------- CATEGORIES ------------------
     // Vista de categorias
 
-    app.get('/categories', function (req, res) {
+    app.get('categories', function (req, res) {
       db.collection('categories').find().toArray().then(results => {
         res.render('categories.ejs', {categories: results});
       });
     });
 
     //  Insertar categoria desde formulario
-    app.post('/create-cat', (req, res) => {
+    app.post('create-cat', (req, res) => {
       catCollection.insertOne(req.body)
       .then(result => {
         res.redirect('/categories')
@@ -103,7 +103,7 @@ client.connect(err => {
 
 
     //  Esborrar categoria
-    app.post('/remove-cat', (req, res) => {
+    app.post('remove-cat', (req, res) => {
       catCollection.deleteOne(req.body)
       .then(result => {
         res.redirect('/categories')
@@ -114,7 +114,7 @@ client.connect(err => {
     // ----------------- IDIOMAS ---------------------
 
     // Vista idiomas
-    app.get('/idiomes', function (req, res) {
+    app.get('idiomes', function (req, res) {
       db.collection('languages').find().toArray()
         .then(results => {
           res.render('idiomes.ejs', { languages: results })
@@ -122,7 +122,7 @@ client.connect(err => {
     });
 
     //  Insertar categoria desde formulario
-    app.post('/create-lang', (req, res) => {
+    app.post('create-lang', (req, res) => {
       langCollection.insertOne(req.body)
       .then(result => {
         res.redirect('/idiomes')
@@ -131,7 +131,7 @@ client.connect(err => {
     });
 
     //  Esborrar idioma
-    app.post('/remove-lang', (req, res) => {
+    app.post('remove-lang', (req, res) => {
       langCollection.deleteOne(req.body)
       .then(result => {
         res.redirect('/idiomes')
