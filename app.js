@@ -48,6 +48,15 @@ client.connect(err => {
     .catch(error => console.error(error));
   });
 
+  //  Esborrar restaurant
+  app.post('/remove-restaurant', (req, res) => {
+    console.log(req.body);
+    restaurantsCollection.deleteOne(req.body)
+    .then(result => {
+      res.redirect('/restaurants')
+    })
+    .catch(error => console.error(error));
+  });
 
     // Mostrar menú
     app.get('/', function (req, res) {

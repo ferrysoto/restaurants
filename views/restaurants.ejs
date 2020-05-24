@@ -16,7 +16,7 @@
   </head>
 
   <nav class="topnav">
-    <a href="/">Home</a>
+    <a href="/">Menus</a>
     <a class="active" href="/restaurants">Restaurants</a>
     <a href="/categories">Categories</a>
     <a href="/idiomes">Idiomes</a>
@@ -28,6 +28,7 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-header">
+              Restaurants
               <button type="button" name="button" class="btn btn-outline-primary float-right" data-toggle="modal" data-target="#addRestaurant">Afegir un nou restaurant</button>
             </div>
             <div class="card-body">
@@ -48,7 +49,13 @@
                       <td><%= restaurants[i].city %></td>
                       <td><%= restaurants[i].zipcode %></td>
                       <td><%= restaurants[i].type %></td>
-                      <td><button class="btn btn-outline-info" data-toggle="modal" data-target="#restaurantsInfo">Veure</button></td>
+                      <td class="row">
+                        <button class="btn btn-outline-info" data-toggle="modal" data-target="#restaurantsInfo">Veure</button>
+                        <form action="/remove-restaurant" method="post" style="margin-left: 5px;">
+                          <input type="text" name="seq" value="<%= restaurants[i].seq %>" hidden>
+                          <button type="submit" class="btn btn-outline-danger">Esborrar</button>
+                        </form>
+                      </td>
 
                       <!-- Modal for view restaurants info -->
                       <div class="modal fade" id="restaurantsInfo" tabindex="-1" role="dialog" aria-labelledby="retaurantInfo" aria-hidden="true">
@@ -137,6 +144,7 @@
                   <option value="Americana">Americana</option>
                 </select>
               </div>
+              <input name="seq" value="<%= (restaurants.length + 1) * Math.random() * 10 %>" hidden>
               <button class="btn btn-outline-success float-right" type="submit">Afegir restaurant</button>
             </form>
           </div>
