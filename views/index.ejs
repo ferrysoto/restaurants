@@ -23,46 +23,90 @@
   </nav>
 
   <body>
-    <div class="container row">
-      <div class="column">
-        <h2>Afegir un plat nou:</h2>
-        <br>
-        <form action="/create-menu" method="POST">
-          <label for="name">Nom del plat:</label>
-          <input type="text" name="name" maxlength="255" required>
-          <br>
-          <label for="allergens">Alèrgens:</label>
-          <input type="text" name="allergens" maxlength="255">
-          <br>
-          <label for="preu">Preu:</label>
-          <input type="number" name="preu" step='0.01' value='0.00' min="0.00" placeholder='0.00' required>
-          <br>
-          <label for="complements">Inclou:</label>
-          <select name="complements">
-            <option value="No selected selected" selected disabled>Escull guarnició:</option>
-            <option value="Patates">Patates</option>
-            <option value="Amanida">Amanida</option>
-            <option value="Patates y amanida">Patates y amanida</option>
-            <option value="Pebrots">Pebrots</option>
-            <option value="Sense guranició">Sense guranició</option>
-          </select>
-          <button type="submit">Afegir plat a la carta</button>
-        </form>
-      </div>
-      <div class="column">
-        <h2>Menú:</h2>
-        <ul class="restaurants">
-          <% for (var i = 0; i < menu.length; i++) {%>
-            <li class="restaurant">
-              <b>Nom:</b> <span><%= menu[i].name %></span><br>
-              <b>Alèrgens:</b> <span><%= menu[i].allergens %></span><br>
-              <b>Preu:</b> <span><%= menu[i].preu %></span>€<br>
-              <b>Guarnició:</b> <span><%= menu[i].complements %></span><br>
-            </li>
-            <br>
-          <% } %>
-        </ul>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <button type="button" name="button" class="btn btn-outline-primary float-right" data-toggle="modal" data-target="#addMenu">Afegir un nou menu</button>
+            </div>
+            <div class="card-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Alèrgens</th>
+                    <th scope="col">Preu</th>
+                    <th scope="col">Guarnició</th>
+                    <th scope="col">Accions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% for (var i = 0; i < menu.length; i++) {%>
+                    <tr>
+                      <td><%= menu[i].name %></td>
+                      <td><%= menu[i].allergens %></td>
+                      <td><%= menu[i].preu %> €</td>
+                      <td><%= menu[i].complements %></td>
+                      <td>
+                        <form action="/remove-menu" method="post">
+                          <input type="text" name="cont" value="<%= menu[i].cont %>" hidden>
+                          <button type="submit" class="btn btn-outline-danger">Esborrar</button>
+                        </form>
+                      </td>
+                    </tr>
+                  <% } %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+
+    <!-- Modal add menu -->
+    <div class="modal fade" id="addMenu" tabindex="-1" role="dialog" aria-labelledby="addRestLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addRestLabel">Afegir un plat nou:</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="/create-menu" method="POST">
+              <div class="form-group">
+                <label for="name">Nom del plat:</label>
+                <input class="form-control" type="text" name="name" maxlength="255" required>
+              </div>
+              <div class="form-group">
+                <label for="allergens">Alèrgens:</label>
+                <input class="form-control" type="text" name="allergens" maxlength="255">
+              </div>
+              <div class="form-group">
+                <label for="preu">Preu:</label>
+                <input class="form-control" type="number" name="preu" step='0.01' value='0.00' min="0.00" placeholder='0.00' required>
+              </div>
+              <div class="form-group">
+                <label for="complements">Inclou:</label>
+                <select name="complements" value="Sense guranició" class="form-control">
+                  <option value="Sense guranició">Escull guarnició:</option>
+                  <option value="Patates">Patates</option>
+                  <option value="Amanida">Amanida</option>
+                  <option value="Patates y amanida">Patates y amanida</option>
+                  <option value="Pebrots">Pebrots</option>
+                  <option value="Sense guranició">Sense guarnició</option>
+                </select>
+              </div>
+              <input name="cont" value="<%= (menu.length + 1) * Math.random() * 10 %>" hidden>
+              <button class="btn btn-outline-success float-right" type="submit">Afegir plat a la carta</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end-modal -->
+
   </body>
 </html>

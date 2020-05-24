@@ -35,8 +35,9 @@
                 <thead>
                   <tr>
                     <th scope="col">Nom</th>
-                    <th scope="col">Adreça</th>
                     <th scope="col">Ciutat</th>
+                    <th scope="col">Codi postal</th>
+                    <th scope="col">Categoria</th>
                     <th scope="col">Informació</th>
                   </tr>
                 </thead>
@@ -44,11 +45,13 @@
                   <% for (var i = 0; i < restaurants.length; i++) {%>
                     <tr>
                       <td><%= restaurants[i].name %></td>
-                      <td><%= restaurants[i].address %></td>
                       <td><%= restaurants[i].city %></td>
-                      <td><a class="btn btn-outline-info" data-toggle="modal" data-target="#<%= restaurants[i].name %>">Veure</a></td>
+                      <td><%= restaurants[i].zipcode %></td>
+                      <td><%= restaurants[i].type %></td>
+                      <td><button class="btn btn-outline-info" data-toggle="modal" data-target="#restaurantsInfo">Veure</button></td>
+
                       <!-- Modal for view restaurants info -->
-                      <div class="modal fade" id="<%= restaurants[i].name %>" tabindex="-1" role="dialog" aria-labelledby="retaurantInfo" aria-hidden="true">
+                      <div class="modal fade" id="restaurantsInfo" tabindex="-1" role="dialog" aria-labelledby="retaurantInfo" aria-hidden="true">
                         <div class="modal-dialog">
                           <div class="modal-content">
                             <div class="modal-header">
@@ -74,6 +77,8 @@
                           </div>
                         </div>
                       </div>
+                      <!-- end-modal -->
+
                     </tr>
                   <% } %>
                 </tbody>
@@ -138,5 +143,7 @@
         </div>
       </div>
     </div>
+    <!-- end-modal -->
+
   </body>
 </html>

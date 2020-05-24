@@ -66,6 +66,17 @@ client.connect(err => {
       .catch(error => console.error(error));
     });
 
+
+    //  Esborrar menú
+    app.post('/remove-menu', (req, res) => {
+      console.log(req.body);
+      menuCollection.deleteOne(req.body)
+      .then(result => {
+        res.redirect('/')
+      })
+      .catch(error => console.error(error));
+    });
+
     // Vista de categorias
     app.get('/categories', function (req, res) {
       db.collection('categories').find().toArray()
