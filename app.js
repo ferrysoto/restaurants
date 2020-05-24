@@ -15,6 +15,9 @@ client.connect(err => {
   const db = client.db("app");
   const restaurantsCollection = db.collection("restaurants");
   const menuCollection = db.collection("menu");
+  const langCollection = db.collection("language");
+  const catCollection = db.collection("categories");
+
 
   // Comprobar que la conexión es correcta
   if (err) {
@@ -28,6 +31,7 @@ client.connect(err => {
   //   res.render('index.ejs')
   // });
 
+  // Vista de restaurantes
   app.get('/restaurants', function (req, res) {
     db.collection('restaurants').find().toArray()
       .then(results => {
