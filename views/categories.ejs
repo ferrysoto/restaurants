@@ -23,53 +23,76 @@
   </nav>
 
   <body>
-    <div class="container row">
-      <div class="column">
-        <h2>Afegir un restaurant nou:</h2>
-        <br>
-        <form action="/create-restaurant" method="POST">
-          <label for="name">Nom del restaurant:</label>
-          <input type="text" name="name" maxlength="255" required>
-          <br>
-          <label for="address">Adreça</label>
-          <input type="text" name="address" maxlength="255" required>
-          <br>
-          <label for="city">Ciutat</label>
-          <input type="text" name="city" maxlength="255" required>
-          <br>
-          <label for="state">Provincia</label>
-          <input type="text" name="state" maxlength="255" required>
-          <br>
-          <label for="zipcode">Codi postal:</label>
-          <input type="number" name="zipcode" min="1" max="99999" required>
-          <br>
-          <label for="phone">Telèfon:</label>
-          <input type="number" name="phone" min="599999999" max="999999999" required>
-          <br>
-          <label for="type">Tipus de restaurant</label>
-          <select name="type">
-            <option value="No type selected" selected disabled>Escull un tipus:</option>
-            <option value="China">China</option>
-            <option value="Japones">Japonesa</option>
-            <option value="Kebab">Kebab</option>
-            <option value="Italià">Italià</option>
-            <option value="Mediterranea">Mediterranea</option>
-            <option value="Americana">Americana</option>
-          </select>
-          <button type="submit">Afegir restaurant</button>
-        </form>
-      </div>
-      <div class="column">
-        <h2>Restaurants:</h2>
-        <ul class="restaurants">
-          <% for (var i = 0; i < categories.length; i++) {%>
-          <li class="restaurant">
-            <b>Nom:</b> <span><%= categories[i].name %></span><br>
-          </li>
-          <br>
-          <% } %>
-        </ul>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              Categories
+              <button type="button" name="button" class="btn btn-outline-primary float-right" data-toggle="modal" data-target="#addCat">Afegir una nova categoria</button>
+            </div>
+            <div class="card-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Idioma</th>
+                    <th scope="col" class="text-right">Accions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% for (var i = 0; i < categories.length; i++) {%>
+                    <tr>
+                      <td><%= categories[i].name %></td>
+                      <td><%= categories[i].lang %></td>
+                      <td class="text-right">
+                        <form action="/remove-cat" method="post">
+                          <input type="text" name="cont" value="<%= categories[i].cont %>" hidden>
+                          <button type="submit" class="btn btn-outline-danger">Esborrar</button>
+                        </form>
+                      </td>
+                    </tr>
+                  <% } %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+
+    <!-- Modal add language -->
+    <div class="modal fade" id="addCat" tabindex="-1" role="dialog" aria-labelledby="addCatLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addCatLabel">Afegir una categoria nova:</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="/create-cat" method="POST">
+              <div class="form-group">
+                <label for="name">Categoria:</label>
+                <input class="form-control" type="text" name="name" maxlength="255" required>
+              </div>
+              <div class="form-group">
+                <label for="country">Idioma:</label>
+                <select class="form-control" name="language">
+                  <% for (var i = 0; i < languages.length; i++) {%>
+                  <option value="<%= languages.cont %>"><%= languages.name %></option>
+                  <% } %>
+                </select>
+              </div>
+              <input name="cont" value="<%= (categories.length + 1) * Math.random() * 10 %>" hidden>
+              <button class="btn btn-outline-success float-right" type="submit">Afegir categoria</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end-modal -->
+
   </body>
 </html>

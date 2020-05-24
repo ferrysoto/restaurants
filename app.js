@@ -83,6 +83,34 @@ client.connect(err => {
       .catch(error => console.error(error));
     });
 
+    // ----------------- CATEGORIES ------------------
+    // Vista de categorias
+
+    app.get('/categories', function (req, res) {
+      db.collection('categories').find().toArray().then(results => {
+        res.render('categories.ejs', {categories: results});
+      });
+    });
+
+    //  Insertar categoria desde formulario
+    app.post('/create-cat', (req, res) => {
+      catCollection.insertOne(req.body)
+      .then(result => {
+        res.redirect('/categories')
+      })
+      .catch(error => console.error(error));
+    });
+
+
+    //  Esborrar categoria
+    app.post('/remove-cat', (req, res) => {
+      catCollection.deleteOne(req.body)
+      .then(result => {
+        res.redirect('/categories')
+      })
+      .catch(error => console.error(error));
+    });
+
     // ----------------- IDIOMAS ---------------------
 
     // Vista idiomas
@@ -90,18 +118,6 @@ client.connect(err => {
       db.collection('languages').find().toArray()
         .then(results => {
           res.render('idiomes.ejs', { languages: results })
-        })
-    });
-
-    // Vista de categorias
-    app.get('/categories', function (req, res) {
-      db.collection('categories').find().toArray()
-        .then(results => {
-          res.render('categories.ejs', { categories: results })
-        })
-      db.collection('languages').find().toArray()
-        .then(results => {
-          res.render('categories.ejs', { languages: results })
         })
     });
 
@@ -122,7 +138,6 @@ client.connect(err => {
       })
       .catch(error => console.error(error));
     });
-
 });
 
 app.listen(80, function() {
