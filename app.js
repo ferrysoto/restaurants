@@ -26,10 +26,7 @@ client.connect(err => {
     console.log("Connected to DB");
   }
 
-  // Mostrar restaurantes
-  // app.get('/', function (req, res) {
-  //   res.render('index.ejs')
-  // });
+  // ----------------- RESTAURANTES ---------------------
 
   // Vista de restaurantes
   app.get('/restaurants', function (req, res) {
@@ -50,13 +47,14 @@ client.connect(err => {
 
   //  Esborrar restaurant
   app.post('/remove-restaurant', (req, res) => {
-    console.log(req.body);
     restaurantsCollection.deleteOne(req.body)
     .then(result => {
       res.redirect('/restaurants')
     })
     .catch(error => console.error(error));
   });
+
+    // ----------------- CARTA ---------------------
 
     // Mostrar menú
     app.get('/', function (req, res) {
@@ -78,12 +76,21 @@ client.connect(err => {
 
     //  Esborrar menú
     app.post('/remove-menu', (req, res) => {
-      console.log(req.body);
       menuCollection.deleteOne(req.body)
       .then(result => {
         res.redirect('/')
       })
       .catch(error => console.error(error));
+    });
+
+    // ----------------- IDIOMAS ---------------------
+
+    // Vista idiomas
+    app.get('/idiomes', function (req, res) {
+      db.collection('languages').find().toArray()
+        .then(results => {
+          res.render('idiomes.ejs', { languages: results })
+        })
     });
 
     // Vista de categorias
@@ -96,6 +103,24 @@ client.connect(err => {
         .then(results => {
           res.render('categories.ejs', { languages: results })
         })
+    });
+
+    //  Insertar categoria desde formulario
+    app.post('/create-lang', (req, res) => {
+      langCollection.insertOne(req.body)
+      .then(result => {
+        res.redirect('/idiomes')
+      })
+      .catch(error => console.error(error));
+    });
+
+    //  Esborrar idioma
+    app.post('/remove-lang', (req, res) => {
+      langCollection.deleteOne(req.body)
+      .then(result => {
+        res.redirect('/idiomes')
+      })
+      .catch(error => console.error(error));
     });
 
 });

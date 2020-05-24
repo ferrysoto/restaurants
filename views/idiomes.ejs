@@ -18,64 +18,77 @@
   <nav class="topnav">
     <a href="/">Menus</a>
     <a href="/restaurants">Restaurants</a>
-    <a href="/categories" class="active">Categories</a>
-    <a href="/idiomes">Idiomes</a>
+    <a href="/categories">Categories</a>
+    <a class="active" href="/idiomes">Idiomes</a>
   </nav>
 
   <body>
-    <div class="container row">
-      <div class="column">
-        <h2>Afegir un idioma nou:</h2>
-        <br>
-        <form action="/create-restaurant" method="POST">
-          <label for="name">Nom del restaurant:</label>
-          <input type="text" name="name" maxlength="255" required>
-          <br>
-          <label for="address">Adreça</label>
-          <input type="text" name="address" maxlength="255" required>
-          <br>
-          <label for="city">Ciutat</label>
-          <input type="text" name="city" maxlength="255" required>
-          <br>
-          <label for="state">Provincia</label>
-          <input type="text" name="state" maxlength="255" required>
-          <br>
-          <label for="zipcode">Codi postal:</label>
-          <input type="number" name="zipcode" min="1" max="99999" required>
-          <br>
-          <label for="phone">Telèfon:</label>
-          <input type="number" name="phone" min="599999999" max="999999999" required>
-          <br>
-          <label for="type">Tipus de restaurant</label>
-          <select name="type">
-            <option value="No type selected" selected disabled>Escull un tipus:</option>
-            <option value="China">China</option>
-            <option value="Japones">Japonesa</option>
-            <option value="Kebab">Kebab</option>
-            <option value="Italià">Italià</option>
-            <option value="Mediterranea">Mediterranea</option>
-            <option value="Americana">Americana</option>
-          </select>
-          <button type="submit">Afegir restaurant</button>
-        </form>
-      </div>
-      <div class="column">
-        <h2>Restaurants:</h2>
-        <ul class="restaurants">
-          <% for (var i = 0; i < restaurants.length; i++) {%>
-          <li class="restaurant">
-            <b>Nom:</b> <span><%= restaurants[i].name %></span><br>
-            <b>Adreça:</b> <span><%= restaurants[i].address %></span><br>
-            <b>Codi postal:</b> <span><%= restaurants[i].zipcode %></span><br>
-            <b>Població:</b> <span><%= restaurants[i].city %></span><br>
-            <b>Provincia:</b> <span><%= restaurants[i].state %></span><br>
-            <b>Telèfon:</b> <span><%= restaurants[i].phone %></span><br>
-            <b>Categoria:</b> <span><%= restaurants[i].type %></span>
-          </li>
-          <br>
-          <% } %>
-        </ul>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              Idiomes
+              <button type="button" name="button" class="btn btn-outline-primary float-right" data-toggle="modal" data-target="#addLang">Afegir un nou idioma</button>
+            </div>
+            <div class="card-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Idioma</th>
+                    <th scope="col">Pais</th>
+                    <th scope="col" class="text-right">Accions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% for (var i = 0; i < languages.length; i++) {%>
+                    <tr>
+                      <td><%= languages[i].name %></td>
+                      <td><%= languages[i].country %></td>
+                      <td class="text-right">
+                        <form action="/remove-lang" method="post">
+                          <input type="text" name="cont" value="<%= languages[i].cont %>" hidden>
+                          <button type="submit" class="btn btn-outline-danger">Esborrar</button>
+                        </form>
+                      </td>
+                    </tr>
+                  <% } %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+
+    <!-- Modal add language -->
+    <div class="modal fade" id="addLang" tabindex="-1" role="dialog" aria-labelledby="addLangLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addLangLabel">Afegir un idioma:</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="/create-lang" method="POST">
+              <div class="form-group">
+                <label for="name">Idioma:</label>
+                <input class="form-control" type="text" name="name" maxlength="255" required>
+              </div>
+              <div class="form-group">
+                <label for="country">Pais:</label>
+                <input class="form-control" type="text" name="country" maxlength="255">
+              </div>
+              <input name="cont" value="<%= (languages.length + 1) * Math.random() * 10 %>" hidden>
+              <button class="btn btn-outline-success float-right" type="submit">Afegir idioma</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end-modal -->
+
   </body>
 </html>
