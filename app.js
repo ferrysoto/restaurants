@@ -140,6 +140,6 @@ client.connect(err => {
     });
 });
 
-app.listen(process.env.PORT , function() {
+app.listen(process.env.PORT || 80, function() {
   console.log('La app funciona en el puerto 80');
 });

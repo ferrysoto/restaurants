@@ -1,6 +1,9 @@
 {
   "name": "restaurants-ferran",
   "version": "1.0.0",
+  "engines": {
+  "node": "12.14.x"
+},
   "description": "App NodeJS de restaurants",
   "main": "app.js",
   "scripts": {
